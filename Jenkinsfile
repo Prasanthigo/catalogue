@@ -20,6 +20,13 @@ pipeline {
         
             }
         }
+        stage('Build') {
+            steps {
+                sh 'ls -ltr'
+                sh 'zip -r ./*'
+
+            }
+        }
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
