@@ -57,7 +57,7 @@ pipeline {
                     protocol: 'http',
                     nexusUrl: '172.31.25.135:8081/',
                     groupId: 'com.roboshop',
-                    version: $packageVersion,
+                    version: "$packageVersion",
                     repository: 'catalogue',
                     credentialsId: 'Nexus',
                     artifacts: [
