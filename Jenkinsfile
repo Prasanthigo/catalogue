@@ -1,11 +1,15 @@
 pipeline {
     agent { node { label 'Agent-1' } } 
+    environment{
+        //here if you create any variable you will have global access, since its environment no need of def
+        packageVersion = ''
+    }
     stages {
         stage('Reading Version') {
             steps {
                 script {
                     def packageJson = readJSON file: 'package.json'
-                    def packageVersion = packageJson.version
+                    packageVersion = packageJson.version
                     echo "${packageVersion}"
                 }
             }
@@ -15,6 +19,7 @@ pipeline {
             
             steps {
                 sh 'ls -ltr'
+                echo "packageversion is $packageVersion"
                 //sh 'npm install'
             }
         }
@@ -45,26 +50,26 @@ pipeline {
 
             }
         }
-    //     stage('Publish Artifact') {
-    //         steps {
-    //             nexusArtifactUploader(
-    //                 nexusVersion: 'nexus3',
-    //                 protocol: 'http',
-    //                 nexusUrl: '172.31.25.135:8081/',
-    //                 groupId: 'com.roboshop',
-    //                 version: '1.0.0',
-    //                 repository: 'catalogue',
-    //                 credentialsId: 'Nexus',
-    //                 artifacts: [
-    //                     [artifactId: catalogue,
-    //                     classifier: '',
-    //                     file: 'catalogue.zip',
-    //                     type: 'zip']
-    //     ]
-    //  )
+        stage('Publish Artifact') {
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '172.31.25.135:8081/',
+                    groupId: 'com.roboshop',
+                    version: $packageVersion,
+                    repository: 'catalogue',
+                    credentialsId: 'Nexus',
+                    artifacts: [
+                        [artifactId: catalogue,
+                        classifier: '',
+                        file: 'catalogue.zip',
+                        type: 'zip']
+        ]
+     )
                 
-    //         }
-    //     }
+            }
+        }
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
