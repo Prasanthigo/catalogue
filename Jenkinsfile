@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'Agent-1' } } 
     stages {
-        stage {
+        stage('Reading Version') {
             steps {
                 script {
                     def packageJson = readJSON file: 'package.json'
