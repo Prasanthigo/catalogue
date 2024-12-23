@@ -14,7 +14,8 @@ pipeline {
         stage('install dependencies') {
             
             steps {
-                sh 'npm install'
+                sh 'ls -ltr'
+                //sh 'npm install'
             }
         }
         stage('Unit Test') {
