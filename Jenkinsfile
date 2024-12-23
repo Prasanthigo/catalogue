@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     def packageJson = readJSON file: 'package.json'
-                    packageVersion = packageJson.version
+                    env.packageVersion = packageJson.version
                     echo "${packageVersion}"
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
             
             steps {
                 sh 'ls -ltr'
-                echo "packageversion is $packageVersion"
+                echo "packageversion is ${env.packageVersion}"
                 //sh 'npm install'
             }
         }
@@ -57,7 +57,7 @@ pipeline {
                     protocol: 'http',
                     nexusUrl: '172.31.25.135:8081/',
                     groupId: 'com.roboshop',
-                    version: "$packageVersion",
+                    version: "${env.packageVersion}",
                     repository: 'catalogue',
                     credentialsId: 'Nexus',
                     artifacts: [
