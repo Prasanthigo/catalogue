@@ -10,7 +10,7 @@ pipeline {
                 script {
                     def packageJson = readJSON file: 'package.json'
                     env.packageVersion = packageJson.version
-                    echo "${packageVersion}"
+                    echo "${env.packageVersion}"
                 }
             }
 
@@ -61,7 +61,7 @@ pipeline {
                     repository: 'catalogue',
                     credentialsId: 'Nexus',
                     artifacts: [
-                        [artifactId: catalogue,
+                        [artifactId: 'catalogue',
                         classifier: '',
                         file: 'catalogue.zip',
                         type: 'zip']
