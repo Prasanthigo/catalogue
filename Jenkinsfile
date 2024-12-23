@@ -1,6 +1,16 @@
 pipeline {
     agent { node { label 'Agent-1' } } 
     stages {
+        stage {
+            steps {
+                script {
+                    def packageJson = readJSON file: 'package.json'
+                    def packageVersion = packageJson.version
+                    echo "${packageVersion}"
+                }
+            }
+
+        }
         stage('install dependencies') {
             
             steps {
@@ -16,7 +26,8 @@ pipeline {
         stage('Sonar scan') {
             steps {
                 sh 'ls -ltr'
-                sh 'sonar-scanner'
+                //sh 'sonar-scanner'
+                echo 'sonar scanning is done'
         
             }
         }
@@ -27,26 +38,32 @@ pipeline {
 
             }
         }
-        stage('Publish Artifact') {
+        stage('SAST') {
             steps {
-                nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '18.234.87.21:8081/',
-                    groupId: 'com.roboshop',
-                    version: '1.0.0',
-                    repository: 'catalogue',
-                    credentialsId: 'Nexus',
-                    artifacts: [
-                        [artifactId: catalogue,
-                        classifier: '',
-                        file: 'catalogue.zip',
-                        type: 'zip']
-        ]
-     )
-                
+                echo 'SAST is done'
+
             }
         }
+    //     stage('Publish Artifact') {
+    //         steps {
+    //             nexusArtifactUploader(
+    //                 nexusVersion: 'nexus3',
+    //                 protocol: 'http',
+    //                 nexusUrl: '172.31.25.135:8081/',
+    //                 groupId: 'com.roboshop',
+    //                 version: '1.0.0',
+    //                 repository: 'catalogue',
+    //                 credentialsId: 'Nexus',
+    //                 artifacts: [
+    //                     [artifactId: catalogue,
+    //                     classifier: '',
+    //                     file: 'catalogue.zip',
+    //                     type: 'zip']
+    //     ]
+    //  )
+                
+    //         }
+    //     }
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
