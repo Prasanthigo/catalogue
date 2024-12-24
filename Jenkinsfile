@@ -84,8 +84,8 @@ pipeline {
 }
         } 
     }
-    post{
-        always{
+    post {
+        always {
             echo 'cleaning up workspace'
             deleteDir()
         }
