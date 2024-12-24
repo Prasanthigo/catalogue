@@ -76,7 +76,7 @@ pipeline {
                 def params = [
                     string(name: 'version', value: "$packageVersion")
                 ]
-                build job: "Roboshop/catalogue-deploy", wait: true
+                build job: "Roboshop/catalogue-deploy", wait: true, parametrers: params
                 echo "Deploying"
         
             }
