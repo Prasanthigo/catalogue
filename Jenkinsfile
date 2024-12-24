@@ -73,6 +73,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
+                def params = [
+                    string(name: 'version', value: "$packageVersion")
+                ]
                 build job: "Roboshop/catalogue-deploy", wait: true
                 echo "Deploying"
         
