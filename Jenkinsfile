@@ -78,8 +78,8 @@ pipeline {
                 ]
                 build job: "Roboshop/catalogue-deploy", wait: true, parameters: params
                 echo "Deploying"
-        
             }
+
         } 
     }
     post{
