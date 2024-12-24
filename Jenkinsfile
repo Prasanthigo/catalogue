@@ -81,7 +81,7 @@ pipeline {
                     echo "Deploying"
                 }
             }
-}
+        }
         } 
     }
     post {
