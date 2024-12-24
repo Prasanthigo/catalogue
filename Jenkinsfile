@@ -73,6 +73,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
+                build job: "../catalogue-deploy" wait: true
                 echo "Deploying"
         
             }
