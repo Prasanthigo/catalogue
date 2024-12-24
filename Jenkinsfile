@@ -19,7 +19,7 @@ pipeline {
             
             steps {
                 sh 'ls -ltr'
-                echo "packageversion is ${env.packageVersion}"
+                echo "packageversion is ${packageVersion}"
                 //sh 'npm install'
             }
         }
@@ -73,7 +73,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'ls -ltr'
-                build job: "../catalogue-deploy", wait: true
+                build job: "Roboshop/catalogue-deploy", wait: true
                 echo "Deploying"
         
             }
