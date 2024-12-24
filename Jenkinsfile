@@ -72,14 +72,16 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'ls -ltr'
-                def params = [
-                    string(name: 'version', value: "$packageVersion")
-                ]
-                build job: "Roboshop/catalogue-deploy", wait: true, parameters: params
-                echo "Deploying"
+                script {
+                    sh 'ls -ltr'
+                    def params = [
+                        string(name: 'version', value: "$packageVersion")
+                    ]
+                    build job: "Roboshop/catalogue-deploy", wait: true, parameters: params
+                    echo "Deploying"
+                }
             }
-
+}
         } 
     }
     post{
