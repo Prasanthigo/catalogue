@@ -2,7 +2,7 @@
 // it means the libraries libraries will be downloaded and accessible at run  time
 @Library('roboshop-library') _
 def configMap = [
-    application: "nodeJSEKS"
+    application: "nodeJSEKS",
     component: "catalogue"
 ]
 // this is .groovy filename and function inside it
